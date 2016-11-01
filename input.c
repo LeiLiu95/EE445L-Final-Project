@@ -144,13 +144,13 @@ void input_Init(){
   // initialize SSI0
   GPIO_PORTB_AFSEL_R |= 0xF0;           // enable alt funct on PB 4,5,6, 7
 				
-  //GPIO_PORTB_DIR_R = 0x20;    
+ // GPIO_PORTB_DIR_R = 0x20;    
   GPIO_PORTB_DEN_R = 0xF0;             // enable digital I/O on PA2,3,5
                                         // configure PA2,3,5 as SSI
   GPIO_PORTB_PCTL_R = (GPIO_PORTB_PCTL_R&0x0000FFFF)+0x22220000;
   GPIO_PORTB_AMSEL_R &= ~0xF0;          // disable analog functionality on PA2,3,5
 	
-	GPIO_PORTB_DATA_R |= 0x20;
+	//GPIO_PORTB_DATA_R |= 0x20;
   SSI2_CR1_R &= ~SSI_CR1_SSE;           // disable SSI
   SSI2_CR1_R &= ~SSI_CR1_MS;            // master mode
                                         // configure for system clock/PLL baud clock source
@@ -180,12 +180,17 @@ void input_Init(){
 	writedata(0x7E);//write
 	writedata(0xFF);
 	
-	writedata(0x7F);//read
+	writedata(0x7D);//set addr
+	writedata(0x73);
+	writedata(0x7E);//write
+	writedata(0xFF);
+	
+	/*writedata(0x7F);//read
 	writedata(0x7D);//set addr
 	writedata(0x03);
 	
 
-	uint8_t input = sendAndRecieve();
+	uint8_t input = sendAndRecieve();*/
 	
 	int delay = 0;
 	
